@@ -1,8 +1,6 @@
 {
   "version": 2,
   "public": true,
-  "buildCommand": "cd interface-main && cd apps/web && yarn install && yarn build:production",
-  "outputDirectory": "interface-main/apps/web/build",
   "rewrites": [
     {
       "source": "/(.*)",
@@ -20,4 +18,4 @@
       ]
     }
   ]
-}
+} 
