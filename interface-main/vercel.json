@@ -1,5 +1,14 @@
 {
-  "rewrites":  [
-    {"source": "/(.*)", "destination": "/"}
-  ]
+  "version": 2,
+  "framework": "create-react-app",
+  "buildCommand": "cd apps/web && yarn install && CI=false yarn build:production",
+  "outputDirectory": "apps/web/build",
+  "installCommand": null,
+  "rewrites": [
+    {"source": "/(.*)", "destination": "/index.html"}
+  ],
+  "env": {
+    "SKIP_INSTALL_DEPS": "1",
+    "NODE_OPTIONS": "--max-old-space-size=8192"
+  }
 }

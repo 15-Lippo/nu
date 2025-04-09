@@ -1,6 +1,7 @@
 {
   "name": "@uniswap/interface",
   "version": "1.1.0",
+  "private": true,
   "description": "Uniswap Interface",
   "license": "GPL-3.0-or-later",
   "scripts": {
@@ -12,7 +13,8 @@
     "sitemap:generate": "node scripts/generate-sitemap.js",
     "start": "craco start",
     "start:cloud": "NODE_OPTIONS=--dns-result-order=ipv4first PORT=3001 REACT_APP_SKIP_CSP=1 npx wrangler pages dev --compatibility-flags=nodejs_compat --compatibility-date=2023-08-01 --proxy=3001 --port=3000 -- yarn start",
-    "build:production": "NODE_OPTIONS=--max-old-space-size=8192 craco build",
+    "build": "CI=false craco build",
+    "build:production": "CI=false GENERATE_SOURCEMAP=false craco build",
     "build:production:analyze": "UNISWAP_ANALYZE_BUNDLE_SIZE=static craco build",
     "analyze": "source-map-explorer 'build/static/js/*.js' --no-border-checks --gzip",
     "serve": "serve build -s -l 3000",
@@ -40,7 +42,8 @@
     "storybook:run:with-tests": "concurrently -s second -n \"SB RUN,SB TEST WATCH\" -c \"magenta,blue\" \"yarn storybook:run --quiet\" \"wait-on tcp:127.0.0.1:6006 -t 600000 && yarn storybook:test --watch\"",
     "storybook:build": "storybook build",
     "storybook:test": "test-storybook --excludeTags=\"no-tests\" --testTimeout 60000",
-    "storybook:test:standalone": "concurrently -k -s first -n \"SB BUILD,SB TEST\" -c \"magenta,blue\" \"yarn storybook:build && http-server storybook-static --port 6006 --silent\" \"wait-on --timeout 600000 tcp:127.0.0.1:6006 && yarn storybook:test --maxWorkers=2\""
+    "storybook:test:standalone": "concurrently -k -s first -n \"SB BUILD,SB TEST\" -c \"magenta,blue\" \"yarn storybook:build && http-server storybook-static --port 6006 --silent\" \"wait-on --timeout 600000 tcp:127.0.0.1:6006 && yarn storybook:test --maxWorkers=2\"",
+    "eject": "craco eject"
   },
   "husky": {
     "hooks": {
@@ -69,8 +72,9 @@
   },
   "browserslist": {
     "production": [
-      ">0.5%",
-      "not dead"
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
     ],
     "development": [
       "last 1 chrome version",
